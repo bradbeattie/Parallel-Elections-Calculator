@@ -1,0 +1,20 @@
+<h2>Results</h2>
+
+<% unless @preference_warning.nil? %>
+	<p class="ui-state-default ui-corner-all ui-state-error">Most voting systems don't know what to do when a demographic, such as <%= @preference_warning %>, likes two candidates equally. Since we want to compare multiple voting systems, I've nudged your inital preferences just enough to make them work in all systems.</p>
+<% end %>
+
+<% if !@results.nil? %>
+	<div id="accordion">
+		<% @results.keys.each do |system| %>
+			<%= render :partial => system, :locals => { :results => @results[system] } %>
+		<% end %>
+	</div>
+
+	<script type="text/javascript">
+		$("#accordion").accordion({ header: "h3", autoHeight: false, collapsible: true, active: false });
+	</script>
+<% else %>
+	<p class="ui-state-default ui-corner-all ui-state-error">Eep! Something went wrong.</p>
+	<!-- <%= @results.inspect %> -->
+<% end %>

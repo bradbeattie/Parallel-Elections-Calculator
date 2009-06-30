@@ -1,0 +1,19 @@
+<%= render :partial => "header", :locals => { :method_name => "Plurality", :winners => results[:winners] } %>
+<div>
+	<h4>Description</h4>
+	<p>In plurality voting, each voter expresses a preference for a single candidate. The candidate with the most votes wins.</p>
+	
+	<h4>Tally</h4>
+	<table class="ui-state-highlight ui-corner-all">
+		<thead>
+			<tr><th>Candidate</th><th>Votes</th<th>Supporting demographics</th></tr>
+		</thead>
+		<tbody>
+			<% @candidates.each do |c| %>
+				<tr><td><%= c %></td><td><%= results[:votes][c] %></td><td><%= results[:supporters][c].join(', ') %></td></tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>
+</div>

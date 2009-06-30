@@ -1,0 +1,57 @@
+<%= render :partial => "header", :locals => { :method_name => "Ranked Pairs", :winners => results[:winners] } %>
+<div>
+	<h4>Description</h4>
+	<p>Voters rank candidates in an order of preference. If there is a candidate who is preferred over all others (in pairwise comparisons) then that candidate will win.</p>
+
+	<h4>Ballots</h4>
+	<table class="ui-state-highlight ui-corner-all">
+		<thead>
+			<tr><th>Demographic</th><th>Size</th<th>Preferences</th></tr>
+		</thead>
+		<tbody>
+			<% results[:preferences].each do |d,p| %>
+				<tr><td><%= d %></td><td><%= @demographic_sizes[d] %></td><td><%= p.join(', ') %></td></tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<% unless results[:sorted_pairs].nil? %>
+		<h4>Pair-wise tally</h4>
+		<p>For each pair of candidates, who do voters prefer?</p>
+		<table class="ui-state-highlight ui-corner-all">
+			<thead>
+				<tr><th>Voters prefer</th><th>Victory margin</th></tr>
+			</thead>
+			<tbody>
+				<% results[:sorted_pairs].each { |pairs| pairs.each do |pair| %>
+					<tr><td><%= pair.keys[0] %> over <%= pair.keys[1] %></td><td><%= pair.values[0] %> to <%= pair.values[1] %></td></tr>
+				<% end } %>
+			</tbody>
+		</table>
+	<% end %>
+	
+	<% if results[:locking].nil? %>
+		<p>Notice that no candidate is preferred over <%= results[:winners][0] %>.</p>
+	<% elsif results[:locked].nil? %>
+		<p>Notice that no preferences are stronger than any other.</p>
+	<% else %>
+		<h4>Discard preference cycles</h4>
+		<%
+			# Would be nice to do this as an actual generated graph
+		%>
+		<p>Using the sorted list above, discard any preferences that would create a cycle of preference (e.g., where A preferred over B, B is preferred over C, but C preferred over A).</p>
+		<table class="ui-state-highlight ui-corner-all">
+			<thead>
+				<tr><th>Voters prefer</th><th>Result</th></tr>
+			</thead>
+			<tbody>
+				<% results[:locking].each do |l| %>
+					<tr><td><%= l[0] %> over <%= l[1] %></td><td><%= l[2] %></td></tr>
+				<% end %>
+			</tbody>
+		</table>
+		<p>Among the kept pairings, no one prefers <%= terms(results[:winners],", ", " or ") %> over any other candidate.</p>
+	<% end %>
+
+	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>
+</div>

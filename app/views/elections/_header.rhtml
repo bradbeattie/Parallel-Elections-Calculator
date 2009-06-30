@@ -1,0 +1,12 @@
+<h3>
+	<a href="#">
+		<%= method_name %>
+		<span>
+			<% if winners.length == 1 %>
+				<%= winners[0] %>
+			<% else %>
+				Tie between <%= terms(winners,", "," and ") %>
+			<% end %>
+		</span>
+	</a>
+</h3>
