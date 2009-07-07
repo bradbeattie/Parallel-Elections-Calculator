@@ -7,6 +7,10 @@
 			<% else %>
 				Tie between <%= terms(winners,", "," and ") %>
 			<% end %>
+			
+			<% unless warnings.nil? %>
+				(with a warning)
+			<% end %>
 		</span>
 	</a>
 </h3>

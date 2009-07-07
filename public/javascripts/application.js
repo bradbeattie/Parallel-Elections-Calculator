@@ -2,25 +2,44 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(document).ready(function(){
-	$('.slider').each(function(i,div){$(div).slider()});
+	$('.slider').each(function(i,div){$(div).slider({range: "min", min: 1, max: 100})});
 	$('#scenarios').bind('tabsshow', function(event, ui) { load_scenario(ui.tab.id.substring(9));	});
-	$("#scenarios").tabs();
-				  
-    $('#initial-values thead th').click(function(){rename_header($(this), "demographic");});
-    $('#initial-values tbody th').click(function(){rename_header($(this), "candidate");});
+	$('#scenarios').tabs();
+
+	$('#action-add-demographic').click(function(){add_entity("demographic")});
+	$('#action-add-candidate').click(function(){add_entity("candidate")});
+	
+	$('.generate-results').live("click",function(){generate_results()});
+	
+    $('#initial-values thead th').click(function(){rename_entity("demographic",$(this));});
+    $('#initial-values tbody th').click(function(){rename_entity("candidate",$(this));});
 	$('#actions a').hover(
 	    function() { $(this).addClass('ui-state-hover'); },
 		function() { $(this).removeClass('ui-state-hover'); }
 	); 
 });
 
-function rename_header(header, title) {
-	new_name = prompt("Rename "+title, header.html());
-	if (new_name != "" && new_name != null && new_name != header.html()) {
+function rename_entity(title, header) {
+	new_name = prompt("New name for "+title, header.html());
+	if (new_name == "") {
+		remove_entity(title, header);
+	} else if (new_name != null && new_name != header.html()) {
 		header.html(new_name);
 		generate_results();
 	}
 }
+
+function remove_entity(title, header) {
+	alert("Removing entity.");
+}
+
+function add_entity(title) {
+	new_name = prompt("Name for new "+title);
+	
+	alert("You can remove your new "+title+" by clicking on its name and emptying it.");
+}
+
+
 
 function load_scenario(scenario) {
     scenarios = new Array;
@@ -32,11 +51,11 @@ function load_scenario(scenario) {
     scenarios["tactical"] = new Array( 80,20,10,
 									   20,80,20,
 									   40,40,80,
-									   80,60,30);
+									   80,50,35);
 	
-    scenarios["ignored"] = new Array( 80,10,10,
-									  10,80,30,
-									  30,20,80,
+    scenarios["ignored"] = new Array( 80,20,20,
+									  20,80,50,
+									  50,50,80,
 									  85,60,30);
 	
     $('.slider').unbind('slidechange', generate_results);

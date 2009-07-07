@@ -1,0 +1,10 @@
+<% unless warnings.nil? %>
+	<p class="ui-state-default ui-corner-all ui-state-error">
+		<% if warnings.length > 1 %>
+			<%= terms(warnings,", "," and ") %> haven't expressed unique preferences between the available candidates, 
+		<% else %>
+			<%= terms(warnings,", "," and ") %> hasn't expressed a unique preference between the available candidates,
+		<% end %>
+		which <%= method_name %> requires. We'll randomly nudge these preferences a bit, but know that you might get different results if you <a href="#" class="generate-results">run this election again</a>.
+	</p>
+<% end %>

@@ -1,21 +1,12 @@
-<%= render :partial => "header", :locals => { :method_name => "Instant-runoff", :winners => results[:winners] } %>
+<%= render :partial => "header", :locals => { :method_name => "Instant-runoff", :winners => results[:winners], :warnings => results[:warnings][:preferences] } %>
 <div>
 	<h4>Description</h4>
 	<p>Voters rank candidates in an order of preference. The candidate with the fewest number of votes is eliminated and their votes are transferred to the supporting voters' next preferred candidates. This process is repeated until one candidate remains.</p>
+	<%= render :partial => "preferences_warning", :locals => { :method_name => "Instant-runoff", :warnings => results[:warnings][:preferences] } %>
 
-	<h4>Ballots</h4>
-	<table class="ui-state-highlight ui-corner-all">
-		<thead>
-			<tr><th>Demographic</th><th>Size</th<th>Preferences</th></tr>
-		</thead>
-		<tbody>
-			<% results[:preferences][0].each do |d,p| %>
-				<tr><td><%= d %></td><td><%= @demographic_sizes[d] %></td><td><%= p.join(', ') %></td></tr>
-			<% end %>
-		</tbody>
-	</table>
+	<%= render :partial => "preference_ballots", :locals => { :preferences => results[:preferences] } %>
 
-	<% for round in (0..results[:rounds]) %>
+	<% for round in (0..results[:supporters].length-2) %>
 		<h4>Step <%= round+1 %></h4>
 		<table class="ui-state-highlight ui-corner-all">
 			<thead>
@@ -28,13 +19,10 @@
 			</tbody>
 		</table>
 		<% eliminated = results[:eliminated][round] %>
-		<% if !results[:ties][round].empty? %>
-			<p class="ui-state-error ui-corner-all">In the event of a tie, such as we have between <%= terms(results[:ties][round],", "," and ") %>, we're going drop the least popular from an election between that subset.</p>
+		<% if !results[:warnings][:ties][round].nil? %>
+			<p class="ui-state-error ui-corner-all">In the event of a tie, such as we have between <%= terms(results[:warnings][:ties][round],", "," and ") %>, we're going drop the least popular from an election between that subset.</p>
 		<% end %>
-		<p>
-			<%= terms(eliminated,", "," and ") %> <%= eliminated.length == 1 ? "is" : "are" %> eliminated.
-			<%= "The winning candidate remains." if round == results[:rounds] %>
-		</p>
+		<p><%= terms(eliminated,", "," and ") %> <%= eliminated.length == 1 ? "is" : "are" %> eliminated.</p>
 	<% end %>
 	
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>

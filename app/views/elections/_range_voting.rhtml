@@ -1,27 +1,26 @@
-<%= render :partial => "header", :locals => { :method_name => "Range voting", :winners => results[:winners] } %>
+<%= render :partial => "header", :locals => { :method_name => "Range voting", :winners => results[:winners], :warnings => nil } %>
 <div>
 	<h4>Description</h4>
 	<p>Voters assign candidates a score from 1 to 100. The candidate with the highest score wins.</p>
 	<p>Note that range voting will result in a condorcet winner <a href="http://en.wikipedia.org/wiki/Nash_equilibrium">if voters have perfect knowledge and strategy</a>. Shouldn't we then just use a Condorcet method and let voters focus on the candidates, not on each other?</p>
-
 	
 	<h4>Tally</h4>
 	<table class="ui-state-highlight ui-corner-all">
 		<thead>
 			<tr>
 				<td></td>
-				<% @demographics.each do |d| %>
+				<% @demographics.keys.each do |d| %>
 					<th><%= d %></th
 				<% end %>
 				<th>Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<% @candidates.each do |c| %>
+			<% results[:candidates].each do |c| %>
 				<tr>
 					<th><%= c %></th>
-					<% @demographics.each do |d| %>
-						<td><%= results[:preferences][d][c].round %> x <%= @demographic_sizes[d] %> = <%= results[:preferences][d][c].round * @demographic_sizes[d] %></td>
+					<% @demographics.keys.each do |d| %>
+						<td><%= results[:preferences][d][c] %> x <%= @demographics[d][:size] %> = <%= results[:preferences][d][c] * @demographics[d][:size] %></td>
 					<% end %>
 					<td><%= results[:sums][c] %></td>
 				</tr>

@@ -1,0 +1,11 @@
+<h4>Ballots</h4>
+<table class="ui-state-highlight ui-corner-all">
+	<thead>
+		<tr><th>Demographic</th><th>Size</th<th>Preferences</th></tr>
+	</thead>
+	<tbody>
+		<% preferences.each do |d,p| %>
+			<tr><td><%= d %></td><td><%= @demographics[d][:size] %></td><td><%= p.collect { |p| terms(p,", "," or ") }.join(' then ') %></td></tr>
+		<% end %>
+	</tbody>
+</table>

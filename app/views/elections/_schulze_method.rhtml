@@ -1,41 +1,21 @@
-<%= render :partial => "header", :locals => { :method_name => "Schulze method", :winners => results[:winners] } %>
+<%= render :partial => "header", :locals => { :method_name => "Schulze method", :winners => results[:winners], :warnings => results[:warnings] } %>
 <div>
 	<h4>Description</h4>
 	<p>Voters rank candidates in an order of preference. If there is a candidate who is preferred over all others (<a href="http://en.wikipedia.org/wiki/Condorcet_method">in pairwise comparisons</a>) then that candidate will win.</p>
 	<p>While the Schulze method are not currently used in governments, it is starting to receive support in some public organizations such as <a href="http://wikimediafoundation.org">The Wikimedia Foundation</a>, <a href="http://en.oreilly.com/oscon2008/public/schedule/detail/3230">MTV</a> and <a href="http://en.wikipedia.org/wiki/Schulze_method#Use_of_the_Schulze_method">more</a>.</p>
 
-	<h4>Ballots</h4>
-	<table class="ui-state-highlight ui-corner-all">
-		<thead>
-			<tr><th>Demographic</th><th>Size</th<th>Preferences</th></tr>
-		</thead>
-		<tbody>
-			<% results[:preferences].each do |d,p| %>
-				<tr><td><%= d %></td><td><%= @demographic_sizes[d] %></td><td><%= p.join(', ') %></td></tr>
-			<% end %>
-		</tbody>
-	</table>
+	<%= render :partial => "preference_ballots", :locals => { :preferences => results[:preferences] } %>
+	<%= render :partial => "pairwise_tally", :locals => { :results => results } %>
 	
-	<% unless results[:sorted_pairs].nil? %>
-		<h4>Pair-wise tally</h4>
-		<p>For each pair of candidates, who do voters prefer?</p>
-		<table class="ui-state-highlight ui-corner-all">
-			<thead>
-				<tr><th>Voters prefer</th><th>Victory margin</th></tr>
-			</thead>
-			<tbody>
-				<% results[:sorted_pairs].each { |pairs| pairs.each do |pair| %>
-					<tr><td><%= pair.keys[0] %> over <%= pair.keys[1] %></td><td><%= pair.values[0] %> to <%= pair.values[1] %></td></tr>
-				<% end } %>
-			</tbody>
-		</table>
-	<% end %>
-	
-	<% if results[:steps].nil? %>
-		<p>Notice that no candidate is preferred over <%= results[:winners][0] %>.</p>
+	<% if results[:removed].nil? %>
+		<p>Notice that no candidate is preferred over <%= terms(results[:winners],", "," or ") %>.</p>
 	<% else %>
 		<h4>Preference pruning</h4>
-		<p>What we have here is a cycle of preferences (there's no clear winner). To account for this, we're going to drop the weakest preferences neccessary to break the cycle.</p>
+		<% if results[:winners].length == 1 %>
+			<p>What we have here is a cycle of preferences and no clear winner. To account for this, we're going to drop the weakest preferences neccessary to break the cycle, which will make the winner obvious.</p>
+		<% else %>
+			<p>There's no clear winner here and some candidates aren't related by preferences at all. We'll drop the weakest preferences and candidates, which will reveal the winners.</p>	
+		<% end %>
 		<table class="ui-state-highlight ui-corner-all">
 			<thead>
 				<tr><th>Removed</th></tr>
@@ -50,6 +30,7 @@
 				<% end %>
 			</tbody>
 		</table>
+		<p>Among the remaining pairings, no one prefers <%= terms(results[:winners],", ", " or ") %> over any other candidate.</p>
 	<% end %>
 	
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>

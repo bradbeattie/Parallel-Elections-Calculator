@@ -14,15 +14,20 @@
 		<script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="javascripts/application.js"></script>
 		<style type="text/css">
-			body { font-family: "Helvetica", sans-serif; margin: 0 auto; padding: 5em; line-height: 1.3em; font-size: 12px; min-width: 500px; max-width: 800px; }
+			body { font-family: "Helvetica", sans-serif; margin: 0 auto; padding: 5em; line-height: 1.3em; font-size: 12px; min-width: 620px; max-width: 800px; }
 			a, .ui-widget-content a { color: #1c94c4 }
 			td, th { padding: 0.25em 0.75em; }
 			th a { text-decoration: none; }
 			dd { margin-bottom: 1em; }
+			h2 { clear: both; }
+			h4 { margin-top: 3em; }
 			#initial-values { width: 100%; }
 			#initial-values td { width: 10em; }
 			#initial-values tbody th { white-space: nowrap; }
 			#initial-values thead th, #initial-values tfoot th { padding: 1.5em 0.5em; }
+			#actions { list-style-type: none; }
+			#actions li { float: right; margin-left: 0.5em; }
+			#actions li a { padding: 0.5em; text-decoration: none; }
 			#scenarios { margin-bottom: 1em; }
 			#scenarios p { margin: 0.5em 0 1.5em; }
 			#scenarios p:last-child { margin-bottom: 0.5em; }
@@ -41,63 +46,62 @@
 		<div id="preferences">
 			<h2>Preferences</h2>
 			<table class="ui-widget-content ui-corner-all" id="initial-values">
-				<thead>
-					<tr>
-						<td></td>
-						<th>Vegetarian celebreties</th>
-						<th>Misanthropic robots</th>
-						<th>Apocalypse prophets</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>Mr. Rogers</th>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-					</tr>
-					<tr>
-						<th>Bender</th>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-					</tr>
-    	            <tr>
-    	                <th>Cthulhu</th>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-    	            </tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Demographic size</th>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-						<td><div class="slider"></div></td>
-					</tr>
-				</tfoot>
-			</table>
-			<h2>Scenarios</h2>
-			<div id="scenarios">
-				<ul>
-					<li><a id="scenario-splitting" href="#splitting">Plurality splits votes</a></li>
-					<li><a id="scenario-tactical" href="#tactical">Plurality forces tactical voting</a></li>
-					<li><a id="scenario-ignored" href="#ignored">IRV ignores some preferences</a></li>
-				</ul>
-				<div id="splitting">
-					<p>Take a look at the preferences above. The first candidate is supported by the first demographic, but strongly opposed by the others. Under plurality, that candidate wins with only 34% of the popular vote. Sound fair? No, I didn't think so.</p>
-				</div>
-				<div id="tactical">
-					<p>See how the two large demographics support their preferred candidates? The smaller demographic wants to support their preferred candidate too, but know they have no chance of winning in a plurality election. So what can they do?</p>
-					<p>The apocalypse prohets are forced to cast insincere votes for the lesser of two popular evils. It's unfortunate that this reduces the percieved support for their candidate and just reinforces this kind of tactical voting.</p>
-				</div>
-				<div id="ignored">
-					<p>Under IRV, vegetarian celebreties don't get their first or second choice, despite being the largest demographic. This happens because their second choice, Cthulhu, was eliminted in the first round. Since pairwise comparisons are never considered, we get these little preferrential hiccups.</p>
-					<p>Systems that satisfy <a href="http://en.wikipedia.org/wiki/Condorcet_criterion">the Condorcet criterion</a> (such as the Schulze method) are necessary to address this issue. However, we also want the system to be simple enough to explain to everyone. That's the key trade-off in electoral reform.</a>
-				</div>
-			</div>
-
+                <thead>
+                    <tr>
+                        <td></td>
+                        <th>Demographic X</th>
+                        <th>Demographic Y</th>
+                        <th>Demographic Z</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Candidate A</th>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                    </tr>
+                    <tr>
+                        <th>Candidate B</th>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                    </tr>
+                    <tr>
+                        <th>Candidate C</th>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Demographic size</th>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                        <td><div class="slider"></div></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <h2>Scenarios</h2>
+            <div id="scenarios">
+                <ul>
+                    <li><a id="scenario-splitting" href="#splitting">Plurality splits votes</a></li>
+                    <li><a id="scenario-tactical" href="#tactical">Plurality forces tactical voting</a></li>
+                    <li><a id="scenario-ignored" href="#ignored">IRV ignores some preferences</a></li>
+                </ul>
+                <div id="splitting">
+                    <p>Take a look at the preferences above. The first candidate is supported by the first demographic, but strongly opposed by the others. Under plurality, that candidate wins with only 34% of the popular vote. Sound fair? No, I didn't think so.</p>
+                </div>
+                <div id="tactical">
+                    <p>See how the two large demographics support their preferred candidates? The smaller demographic wants to support their preferred candidate too, but know they have no chance of winning in a plurality election. So what can they do?</p>
+                    <p>Voters in demographic Z are forced to cast insincere votes for the lesser of two popular evils. It's unfortunate that this reduces the percieved support for their candidate and just reinforces this kind of tactical voting.</p>
+                </div>
+                <div id="ignored">
+                    <p>Under IRV, voters in demographic X don't get their first or second choice, despite being the largest demographic. This happens because their second choice, Candidate C, was eliminted in the first round. Since pairwise comparisons are never considered, we get these little preferrential hiccups.</p>
+                    <p>Systems that satisfy <a href="http://en.wikipedia.org/wiki/Condorcet_criterion">the Condorcet criterion</a> (such as the Schulze method) are necessary to address this issue. However, we also want the system to be simple enough to explain to everyone. That's the key trade-off in electoral reform.</a>
+                </div>
+            </div>
 		</div>
 		<div id="results">
 		</div>

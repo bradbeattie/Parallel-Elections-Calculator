@@ -1,0 +1,14 @@
+<% unless results[:strongPairs].nil? %>
+	<h4>Pair-wise tally</h4>
+	<p>For each pair of candidates, who do voters prefer?</p>
+	<table class="ui-state-highlight ui-corner-all">
+		<thead>
+			<tr><th>Voters prefer</th><th>Victory margin</th></tr>
+		</thead>
+		<tbody>
+			<% results[:strongPairs].each do |pair| %>
+				<tr><td><%= pair[0][0] %> over <%= pair[0][1] %></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
