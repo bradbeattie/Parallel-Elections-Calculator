@@ -9,7 +9,7 @@ module Elections
 			results[:candidates] = self.candidates(demographics)
 			results[:pairs] = self.pairs(results[:preferences], demographics, results[:candidates])
 			results[:strongPairs] = self.strongPairs(results[:pairs])
-			results[:sortedStrongPairs] = self.sortedPairs(results[:strongPairs])
+			results[:sortedStrongPairs] = results[:strongPairs].grouping_invert
 			results[:winners] = self.condorcetWinner(results[:strongPairs], results[:candidates])
 			return results
 		end
@@ -44,14 +44,7 @@ module Elections
 		def self.strongPairs(pairs)
 			pairs.select { |p,v| v > pairs[[p[1],p[0]]] } 
 		end
-		
-		# Returns pairs sorted by strength
-		def self.sortedPairs(pairs)
-			results = pairs.group_by { |p| p[1] }.sort { |v1, v2| v2 <=> v1 }
-			results = Hash[*results.collect { |a,b| a }.zip(results.collect { |a,b| b.collect { |c,d| c } }).flatten(1)]
-			results
-		end
-		
+				
 		# Determine if there's a strict Condorcet winner
 		def self.condorcetWinner(strongPairs, candidates)
 			candidates.select { |c| strongPairs.count { |p| p[0][0] == c } == candidates.length-1 }.compact
