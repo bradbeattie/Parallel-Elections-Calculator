@@ -6,16 +6,7 @@
 	<%= render :partial => "preferences_warning", :locals => { :method_name => "Plurality", :warnings => results[:warnings] } %>
 	
 	<h4>Tally</h4>
-	<table class="ui-state-highlight ui-corner-all">
-		<thead>
-			<tr><th>Candidate</th><th>Votes</th<th>Supporting demographics</th></tr>
-		</thead>
-		<tbody>
-			<% results[:supporters].keys.each do |c| %>
-				<tr><td><%= c %></td><td><%= results[:votes][c] %></td><td><%= results[:supporters][c].join(', ') %></td></tr>
-			<% end %>
-		</tbody>
-	</table>
+	<%= render :partial => "supprting_demographics", :locals => { :supporters => results[:supporters], :votes => results[:votes] } %>
 
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>
 </div>

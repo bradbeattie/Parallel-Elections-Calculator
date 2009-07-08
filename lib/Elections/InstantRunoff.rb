@@ -10,9 +10,9 @@ module Elections
 		def self.run(demographics)
 		
 			results = Hash.new
-			results[:candidates] = [self.candidates(demographics)]
 			results[:warnings] = { :preferences => self.perturbPreferences(demographics), :ties => {} }
 			results[:preferences] = self.preferences(demographics)
+			results[:candidates] = [Elections::Plurality.preferences(demographics).values.uniq]
 			results[:supporters] = Array.new
 			results[:votes] = Array.new
 			results[:eliminated] = Array.new

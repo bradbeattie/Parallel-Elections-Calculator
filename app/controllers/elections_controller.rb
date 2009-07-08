@@ -3,6 +3,7 @@ require 'Elections/InstantRunoff'
 require 'Elections/SchulzeMethod'
 require 'Elections/RankedPairs'
 require 'Elections/RangeVoting'
+require 'Elections/RandomBallot'
 
 class ElectionsController < ApplicationController
 
@@ -19,8 +20,9 @@ class ElectionsController < ApplicationController
 			Elections::Plurality => true,
 			Elections::InstantRunoff => true,
 			Elections::SchulzeMethod => true,
-			Elections::RankedPairs => true,
-			Elections::RangeVoting => true
+			Elections::RankedPairs => false,
+			Elections::RangeVoting => false,
+			Elections::RandomBallot => false
 		}
 		
 		# Determine which voting systems we'll be using
@@ -37,7 +39,7 @@ class ElectionsController < ApplicationController
 				:preferences => Hash[*candidates.zip(array[2].collect { |p| p.to_i }).flatten]
 			}
 		end
-
+		
 		# Call each voting system in turn
 		@results = Hash.new
 		@systems.each do |system|

@@ -8,16 +8,8 @@
 
 	<% for round in (0..results[:supporters].length-2) %>
 		<h4>Step <%= round+1 %></h4>
-		<table class="ui-state-highlight ui-corner-all">
-			<thead>
-				<tr><th>Candidate</th><th>Votes</th<th>Supporting demographics</th></tr>
-			</thead>
-			<tbody>
-				<% results[:votes][round].each do |c,v| %>
-					<tr><td><%= c %></td><td><%= v %></td><td><%= results[:supporters][round][c].join(", ") %></td></tr>
-				<% end %>
-			</tbody>
-		</table>
+		<%= render :partial => "supprting_demographics", :locals => { :supporters => results[:supporters][round], :votes => results[:votes][round] } %>
+		
 		<% eliminated = results[:eliminated][round] %>
 		<% if !results[:warnings][:ties][round].nil? %>
 			<p class="ui-state-error ui-corner-all">In the event of a tie, such as we have between <%= terms(results[:warnings][:ties][round],", "," and ") %>, we're going drop the least popular from an election between that subset.</p>

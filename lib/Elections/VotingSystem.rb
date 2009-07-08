@@ -19,6 +19,21 @@ class Hash
 	end
 end
 
+class Array
+	def weighted_random(weights=nil)
+		return weighted_random(map {|n| n.send(weights)}) if weights.is_a? Symbol
+
+		weights ||= Array.new(length, 1.0)
+		total = weights.inject(0.0) {|t,w| t+w.to_f}
+		point = Kernel.rand * total
+		
+		zip(weights).each do |n,w|
+			return n if w >= point
+			point -= w
+		end
+	end
+end
+
 def deep_copy(object)
 	Marshal.load(Marshal.dump(object))
 end
