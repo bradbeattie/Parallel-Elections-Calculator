@@ -12,7 +12,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#accordion").accordion({ header: "h3", autoHeight: false, collapsible: true, active: false });
+		$("#accordion").accordion({ header: "h3", autoHeight: false <% if @results.keys.length > 1 %>, collapsible: true, active: false <% end %> });
 	</script>
 <% else %>
 	<p class="ui-state-default ui-corner-all ui-state-error">Eep! Something went wrong.</p>
