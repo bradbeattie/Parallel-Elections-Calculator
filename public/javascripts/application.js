@@ -55,7 +55,11 @@ function rename_entity(title, header) {
 }
 
 function remove_entity(title, header) {
-	alert("To do: remove specified entity");
+	if (title == "candidate") {
+
+	} else if (title == "demographic") {
+			 
+	}
 }
 
 function add_entity(title) {
