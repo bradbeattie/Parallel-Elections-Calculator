@@ -12,9 +12,9 @@
 		
 		<% eliminated = results[:eliminated][round] %>
 		<% if !results[:warnings][:ties][round].nil? %>
-			<p class="ui-state-error ui-corner-all">In the event of a tie, such as we have between <%= terms(results[:warnings][:ties][round],", "," and ") %>, we're going drop the least popular from an election between that subset.</p>
+			<p class="ui-state-error ui-corner-all">In the event of a tie, such as we have between <em><%= terms(results[:warnings][:ties][round],"</em>, <em>","</em> and <em>") %></em>, we're going drop the least popular from an election between that subset.</p>
 		<% end %>
-		<p><%= terms(eliminated,", "," and ") %> <%= eliminated.length == 1 ? "is" : "are" %> eliminated.</p>
+		<p><em><%= terms(eliminated,"</em>, <em>","</em> and <em>") %></em> <%= eliminated.length == 1 ? "is" : "are" %> eliminated.</p>
 	<% end %>
 	
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>

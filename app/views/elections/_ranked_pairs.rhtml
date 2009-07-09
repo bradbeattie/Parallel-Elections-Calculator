@@ -25,7 +25,7 @@
 				<% end %>
 			</tbody>
 		</table>
-		<p>Among the kept pairings, no one prefers <%= terms(results[:winners],", ", " or ") %> over any other candidate.</p>
+		<p>Among the kept pairings, no one prefers <em><%= terms(results[:winners],"</em>, <em>", "</em> or <em>") %></em> over any other candidate.</p>
 	<% end %>
 
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>
