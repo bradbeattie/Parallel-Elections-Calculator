@@ -12,7 +12,7 @@
 				(with a warning)
 			<% end %>
 
-			<% unless message.nil? %>
+			<% unless defined?(message).nil? %>
 				(<%= message %>)
 			<% end %>
 		</span>
