@@ -12,7 +12,7 @@
 		</thead>
 		<tbody>
 			<% results[:supporters].keys.each do |c| %>
-				<tr><td><%= c %></td><td><%= results[:votes][c] %></td><td><%= results[:supporters][c].join(', ') %></td></tr>
+				<tr><td><%= c %></td><td><%= results[:votes][c] %></td><td><em><%= results[:supporters][c].join('</em>, <em>') %></em></td></tr>
 			<% end %>
 		</tbody>
 	</table>

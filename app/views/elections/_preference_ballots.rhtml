@@ -5,7 +5,7 @@
 	</thead>
 	<tbody>
 		<% preferences.each do |d,p| %>
-			<tr><td><%= d %></td><td><%= @demographics[d][:size] %></td><td><em><%= p.collect { |p| terms(p,"</em>, <em>","</em> or <em>") }.join(' then ') %></em></td></tr>
+			<tr><td><%= d %></td><td><%= @demographics[d][:size] %></td><td><em><%= p.collect { |p| terms(p,"</em>, <em>","</em> or <em>") }.join('</em> then <em>') %></em></td></tr>
 		<% end %>
 	</tbody>
 </table>

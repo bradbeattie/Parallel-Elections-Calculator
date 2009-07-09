@@ -4,7 +4,7 @@
 	</thead>
 	<tbody>
 		<% supporters.keys.each do |c| %>
-			<tr><td><%= c %></td><td><%= votes[c] %></td><td><%= supporters[c].join(", ") %></td></tr>
+			<tr><td><%= c %></td><td><%= votes[c] %></td><td><em><%= supporters[c].join("</em>, <em>") %></em></td></tr>
 		<% end %>
 	</tbody>
 </table>
