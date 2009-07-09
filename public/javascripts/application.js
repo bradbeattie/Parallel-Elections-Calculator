@@ -14,17 +14,17 @@ scenarios["tactical"]["candidates"] = ["Turn back before it's too late", "Keep s
 scenarios["tactical"]["demographics"] = ["Crew", "Passengers", "Adventurous passengers"];
 scenarios["tactical"]["demographic_sizes"] = [80,70,15];
 scenarios["tactical"]["preferences"] = [90,10,10,
-										10,90,20,
-										50,50,80];
+										10,90,50,
+										50,50,90];
 
 scenarios["ignored"] = new Array;
 scenarios["ignored"]["systems"] = ["InstantRunoff", "SchulzeMethod"];
 scenarios["ignored"]["candidates"] = ["Chocolate", "Vanilla", "Strawberry"];
 scenarios["ignored"]["demographics"] = ["Economists", "Actuaries", "Jugglers"];
 scenarios["ignored"]["demographic_sizes"] = [80,50,35];
-scenarios["ignored"]["preferences"] = [80,20,20,
-									   20,80,50,
-									   50,50,80];
+scenarios["ignored"]["preferences"] = [90,10,10,
+									   10,90,50,
+									   50,50,90];
 
 
 $(document).ready(function(){
