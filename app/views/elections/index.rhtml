@@ -24,7 +24,7 @@
 			#initial-values { width: 100%; }
 			#initial-values td { width: 10em; }
 			#initial-values tbody th { white-space: nowrap; }
-			#initial-values thead th, #initial-values tfoot th { padding: 1.5em 0.5em; }
+			#initial-values thead th, #initial-values tfoot th { padding: 1.5em 0.5em; min-width: 7.5em; }
 			#actions { list-style-type: none; }
 			#actions li { float: right; margin-left: 0.5em; }
 			#actions li a { padding: 0.5em; text-decoration: none; }
@@ -49,28 +49,12 @@
                 <thead>
                     <tr>
                         <td></td>
-                        <th>Demographic X</th>
-                        <th>Demographic Y</th>
-                        <th>Demographic Z</th>
+                        <th>Demographic</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>Candidate A</th>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
-                    </tr>
-                    <tr>
-                        <th>Candidate B</th>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
-                    </tr>
-                    <tr>
-                        <th>Candidate C</th>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
+                        <th>Candidate</th>
                         <td><div class="slider"></div></td>
                     </tr>
                 </tbody>
@@ -78,11 +62,13 @@
                     <tr>
                         <th>Demographic size</th>
                         <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
-                        <td><div class="slider"></div></td>
                     </tr>
                 </tfoot>
             </table>
+			<ul id="actions">
+				<li><a id="action-add-demographic" class="ui-state-default ui-corner-all" href="#">Add a demographic</a></li>
+				<li><a id="action-add-candidate" class="ui-state-default ui-corner-all" href="#">Add a candidate</a></li>
+			</ul>
             <h2>Scenarios</h2>
             <div id="scenarios">
                 <ul>

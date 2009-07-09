@@ -35,7 +35,7 @@ module Elections
 					weakest_edges = edge_weights.pop
 					weakest_edges.each do |e|
 						results[:removed] << e
-						graph.remove_edge(e.keys[0], e.keys[1])
+						graph.remove_edge(e[0], e[1])
 					end
 				end
 			end

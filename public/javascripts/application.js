@@ -11,8 +11,8 @@ $(document).ready(function(){
 	
 	$('.generate-results').live("click",function(){generate_results()});
 	
-    $('#initial-values thead th').click(function(){rename_entity("demographic",$(this));});
-    $('#initial-values tbody th').click(function(){rename_entity("candidate",$(this));});
+    $('#initial-values thead th').live("click",function(){rename_entity("demographic",$(this));});
+    $('#initial-values tbody th').live("click",function(){rename_entity("candidate",$(this));});
 	$('#actions a').hover(
 	    function() { $(this).addClass('ui-state-hover'); },
 		function() { $(this).removeClass('ui-state-hover'); }
@@ -30,50 +30,81 @@ function rename_entity(title, header) {
 }
 
 function remove_entity(title, header) {
-	alert("Removing entity.");
+	alert("To do: remove specified entity");
 }
 
 function add_entity(title) {
 	new_name = prompt("Name for new "+title);
-	
-	alert("You can remove your new "+title+" by clicking on its name and emptying it.");
+	if (new_name != null && new_name != "") {
+		if (title == "candidate") {
+			columns = $("#initial-values tbody tr:first-child td").length;
+			html_segment = "<tr><th>"+new_name+"</th>";
+			for (i=0;i<columns;i++)	html_segment += "<td><div class='slider'></div></td>";
+			html_segment += "</tr>";
+			$("#initial-values tbody").append(html_segment);
+			$("#initial-values tbody tr:last-child .slider").each(function(i,div){ $(div).slider({range: "min", min: 1, max: 100, value: Math.floor(Math.random()*100+1)}) });
+		} else if (title == "demographic") {
+			$("#initial-values thead tr").append("<th>"+new_name+"</th>");
+			$("#initial-values tbody tr").append("<td><div class='slider'></div></td>");
+			$("#initial-values tfoot tr").append("<td><div class='slider'></div></td>");
+			$("#initial-values tr td:last-child .slider").each(function(i,div){ $(div).slider({range: "min", min: 1, max: 100, value: Math.floor(Math.random()*100+1)}) });
+
+		}
+		$('.slider').unbind('slidechange', generate_results);
+		$('.slider').bind('slidechange', generate_results);
+		generate_results();
+	}
+	return false;
 }
 
 
 
 function load_scenario(scenario) {
-    scenarios = new Array;
-    scenarios["splitting"] = new Array( 80,20,20,
-										50,75,65,
-										70,70,75,
-										34,33,33);
 	
-    scenarios["tactical"] = new Array( 80,20,10,
-									   20,80,20,
-									   40,40,80,
-									   80,50,35);
+	scenarios = new Array;
+    scenarios["splitting"] = new Array;
+	scenarios["splitting"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
+	scenarios["splitting"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
+	scenarios["splitting"]["demographic_sizes"] = [34,33,33];
+	scenarios["splitting"]["preferences"] = [80,20,20,
+											 50,75,65,
+											 70,70,75];
 	
-    scenarios["ignored"] = new Array( 80,20,20,
-									  20,80,50,
-									  50,50,80,
-									  85,60,30);
-	
-    $('.slider').unbind('slidechange', generate_results);
-    if (scenario != "random") {
-        $('.slider').each(function(i,div){
-            $(div).slider('value', scenarios[scenario][i]);
-        });
-    } else {
-        $('.slider').each(function(i,div){
-            $(div).slider('value', Math.floor(Math.random()*100+1));
-        });    
-    }
-    $('.slider').bind('slidechange', generate_results);
+	scenarios["tactical"] = new Array;
+	scenarios["tactical"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
+	scenarios["tactical"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
+	scenarios["tactical"]["demographic_sizes"] = [80,50,35];
+	scenarios["tactical"]["preferences"] = [80,20,10,
+											20,80,20,
+											40,40,80];
 
-	if (arguments.length == 1) {
-		generate_results();
+	scenarios["ignored"] = new Array;
+	scenarios["ignored"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
+	scenarios["ignored"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
+	scenarios["ignored"]["demographic_sizes"] = [80,50,35];
+	scenarios["ignored"]["preferences"] = [80,20,20,
+										   20,80,50,
+										   50,50,80];
+	
+	$("#initial-values").html("<thead><tr><td></td></tr></thead><tbody></tbody><tfoot><tr><th>Demographic size</th></tr></tfoot>");
+	
+	for (var i in scenarios[scenario]["candidates"]) {
+		$("#initial-values tbody").append("<tr><th>"+scenarios[scenario]["candidates"][i]+"</th></tr>");
 	}
+	for (var i in scenarios[scenario]["demographics"]) {
+		$("#initial-values thead tr").append("<th>"+scenarios[scenario]["demographics"][i]+"</th>");
+		$("#initial-values tbody tr").append("<td><div class='slider'></div></td>");
+		$("#initial-values tfoot tr").append("<td><div class='slider'></div></td>");
+	}
+	
+	$('.slider').each(function(i,div){$(div).slider({range: "min", min: 1, max: 100})});
+    $('.slider').unbind('slidechange', generate_results);
+    $('#initial-values tbody .slider').each(function(i,div){ $(div).slider('value', scenarios[scenario]["preferences"][i]); });
+    $('#initial-values tfoot .slider').each(function(i,div){ $(div).slider('value', scenarios[scenario]["demographic_sizes"][i]); });
+    $('.slider').bind('slidechange', generate_results);
+	generate_results();
 }
+
 
 function generate_results() {
 
