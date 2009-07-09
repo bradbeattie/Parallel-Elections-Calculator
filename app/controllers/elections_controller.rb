@@ -28,7 +28,7 @@ class ElectionsController < ApplicationController
 		# Determine which voting systems we'll be using
 		@systems ||= defaults.keys if params[:systems] == ["all"]
 		@systems ||= defaults.select { |system,default| default }.keys if params[:systems].nil?
-		@systems ||= defaults.select { |system,default| params[:systems].include?(system.name.underscore) }
+		@systems ||= defaults.select { |system,default| params[:systems].include?(system.name.split('::').last) }.keys
 
 		# Process the demographics, their sizes and their preferences
 		candidates = params[:candidates]

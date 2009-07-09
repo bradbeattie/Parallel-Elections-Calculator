@@ -5,9 +5,9 @@
 		<title>Parallel Elections Calculator</title>
 		<link type="text/css" href="stylesheets/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
 		<script type="text/javascript">
-			var systems;
+			var systems_override;
 			<% unless params[:systems].nil? %>
-				systems = new Array("<%= params[:systems].split(',').join('","') %>"); 
+				systems_override = new Array("<%= params[:systems].split(',').join('","') %>"); 
 			<% end %>
 		</script>
 		<script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"></script>
@@ -77,15 +77,17 @@
                     <li><a id="scenario-ignored" href="#ignored">IRV ignores some preferences</a></li>
                 </ul>
                 <div id="splitting">
-                    <p>Take a look at the preferences above. The first candidate is supported by the first demographic, but strongly opposed by the others. Under plurality, that candidate wins with only 34% of the popular vote. Sound fair? No, I didn't think so.</p>
+                    <p>Take a look at the preferences above. 34% want a yellowish candidate and 66% want a blueish-greenish candidate. Under plurality, the yellow candidate wins. Sound fair? No, I didn't think so.</p>
                 </div>
                 <div id="tactical">
-                    <p>See how the two large demographics support their preferred candidates? The smaller demographic wants to support their preferred candidate too, but know they have no chance of winning in a plurality election. So what can they do?</p>
-                    <p>Voters in demographic Z are forced to cast insincere votes for the lesser of two popular evils. It's unfortunate that this reduces the percieved support for their candidate and just reinforces this kind of tactical voting.</p>
+                    <p>Oh no! The cruise ship has developed an unpatchable leak in its fuel supply. We need to decide on a course of action.</p>
+					<p>See how the crew and passengers dominate the voting with their preferences. The adventurous passengers want to vote to search for a tropical paradise, but know they have no chance of winning in a plurality election. So what can they do? The adventurous passengers are forced to cast insincere votes for the lesser of two popular evils.</p>
+					<p>In the general case, this type of tactical voting reduces the percieved support of political candidates and just reinforces the inaccurate perception of their popularity.</p>
                 </div>
                 <div id="ignored">
-                    <p>Under IRV, voters in demographic X don't get their first or second choice, despite being the largest demographic. This happens because their second choice, Candidate C, was eliminted in the first round. Since pairwise comparisons are never considered, we get these little preferrential hiccups.</p>
-                    <p>Systems that satisfy <a href="http://en.wikipedia.org/wiki/Condorcet_criterion">the Condorcet criterion</a> (such as the Schulze method) are necessary to address this issue. However, we also want the system to be simple enough to explain to everyone. That's the key trade-off in electoral reform.</a>
+                    <p>Let's say there's a conference and we want to order some ice cream. What flavour do we get if we want everyone to be happy?</p>
+					<p>Under IRV, the economists wouldn't get their first or second choice, despite being the largest demographic. This happens because strawberry is eliminted in the first round. You'd think we'd want to consider the second choice of such a large group. Systems like the Schulze Method satisfy address <a href="http://en.wikipedia.org/wiki/Condorcet_criterion">this issue</a>.</p>
+					<p>Now I know what you're thinking: &quot;What about Neapolitan?&quot; Well, that would fall under the category of <a href="http://en.wikipedia.org/wiki/Voting_systems#Multiple-winner_methods">multiple-winner voting systems</a>.</p>
                 </div>
             </div>
 		</div>

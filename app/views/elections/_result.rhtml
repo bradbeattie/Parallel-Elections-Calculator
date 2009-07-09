@@ -1,8 +1,8 @@
 <h4>Result</h4>
 <p>
 	<% if (winners.length == 1) %>
-		<%= winners[0] %> wins.
+		<em><%= winners[0] %></em> wins.
 	<% else %>
-		Tie between <%= terms(winners,", "," and ") %>.
+		Tie between <em><%= terms(winners,", "," and ") %></em>.
 	<% end %>
 </p>

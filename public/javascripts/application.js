@@ -1,8 +1,33 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+scenarios = new Array;
+scenarios["splitting"] = new Array;
+scenarios["splitting"]["systems"] = ["Plurality", "SchulzeMethod"];
+scenarios["splitting"]["candidates"] = ["Yellow Candidate", "Teal Candidate", "Aqua Candidate"];
+scenarios["splitting"]["demographics"] = ["People living on the north side", "People living on the south side", "People living in the city centre"];
+scenarios["splitting"]["demographic_sizes"] = [34,33,33];
+scenarios["splitting"]["preferences"] = [80,10,10,
+										 30,80,70,
+										 40,70,80];
+
+scenarios["tactical"] = new Array;
+scenarios["tactical"]["systems"] = ["Plurality", "SchulzeMethod"];
+scenarios["tactical"]["candidates"] = ["Turn back before it's too late", "Keep sailing across the Atlantic", "Search for a nearby habitable island"];
+scenarios["tactical"]["demographics"] = ["Crew", "Passengers", "Adventurous passengers"];
+scenarios["tactical"]["demographic_sizes"] = [80,70,15];
+scenarios["tactical"]["preferences"] = [90,10,10,
+										10,90,20,
+										50,50,80];
+
+scenarios["ignored"] = new Array;
+scenarios["ignored"]["systems"] = ["InstantRunoff", "SchulzeMethod"];
+scenarios["ignored"]["candidates"] = ["Chocolate", "Vanilla", "Strawberry"];
+scenarios["ignored"]["demographics"] = ["Economists", "Actuaries", "Jugglers"];
+scenarios["ignored"]["demographic_sizes"] = [80,50,35];
+scenarios["ignored"]["preferences"] = [80,20,20,
+									   20,80,50,
+									   50,50,80];
+
 
 $(document).ready(function(){
-	$('.slider').each(function(i,div){$(div).slider({range: "min", min: 1, max: 100})});
 	$('#scenarios').bind('tabsshow', function(event, ui) { load_scenario(ui.tab.id.substring(9));	});
 	$('#scenarios').tabs();
 
@@ -50,8 +75,6 @@ function add_entity(title) {
 			$("#initial-values tr td:last-child .slider").each(function(i,div){ $(div).slider({range: "min", min: 1, max: 100, value: Math.floor(Math.random()*100+1)}) });
 
 		}
-		$('.slider').unbind('slidechange', generate_results);
-		$('.slider').bind('slidechange', generate_results);
 		generate_results();
 	}
 	return false;
@@ -60,31 +83,6 @@ function add_entity(title) {
 
 
 function load_scenario(scenario) {
-	
-	scenarios = new Array;
-    scenarios["splitting"] = new Array;
-	scenarios["splitting"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
-	scenarios["splitting"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
-	scenarios["splitting"]["demographic_sizes"] = [34,33,33];
-	scenarios["splitting"]["preferences"] = [80,20,20,
-											 50,75,65,
-											 70,70,75];
-	
-	scenarios["tactical"] = new Array;
-	scenarios["tactical"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
-	scenarios["tactical"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
-	scenarios["tactical"]["demographic_sizes"] = [80,50,35];
-	scenarios["tactical"]["preferences"] = [80,20,10,
-											20,80,20,
-											40,40,80];
-
-	scenarios["ignored"] = new Array;
-	scenarios["ignored"]["candidates"] = ["Candidate A", "Candidate B", "Candidate C"];
-	scenarios["ignored"]["demographics"] = ["Demographic X", "Demographic Y", "Demographic Z"];
-	scenarios["ignored"]["demographic_sizes"] = [80,50,35];
-	scenarios["ignored"]["preferences"] = [80,20,20,
-										   20,80,50,
-										   50,50,80];
 	
 	$("#initial-values").html("<thead><tr><td></td></tr></thead><tbody></tbody><tfoot><tr><th>Demographic size</th></tr></tfoot>");
 	
@@ -98,15 +96,15 @@ function load_scenario(scenario) {
 	}
 	
 	$('.slider').each(function(i,div){$(div).slider({range: "min", min: 1, max: 100})});
-    $('.slider').unbind('slidechange', generate_results);
     $('#initial-values tbody .slider').each(function(i,div){ $(div).slider('value', scenarios[scenario]["preferences"][i]); });
     $('#initial-values tfoot .slider').each(function(i,div){ $(div).slider('value', scenarios[scenario]["demographic_sizes"][i]); });
-    $('.slider').bind('slidechange', generate_results);
-	generate_results();
+	generate_results(scenarios[scenario]["systems"]);
 }
 
 
-function generate_results() {
+function generate_results(systems) {
+	$('.slider').unbind('slidechange', generate_results);
+
 
 	// Parse the demographics
 	var demographics = Array();
@@ -143,7 +141,9 @@ function generate_results() {
 	for (var i in demographics) {
 		params["preferences["+i+"][]"] = preferences[i];
 	}
-	if (systems != undefined) {
+	if (systems_override != undefined) {
+		params["systems[]"] = systems_override;
+	} else if (systems != undefined && systems instanceof Array) {
 		params["systems[]"] = systems;
 	}
 	$.post("elections/results", params,
@@ -151,5 +151,7 @@ function generate_results() {
 			$("#results").html(data);
 		}
 	);
+	
+	$('.slider').bind('slidechange', generate_results);
 	return false;
 }
