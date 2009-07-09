@@ -11,6 +11,10 @@
 			<% unless warnings.nil? %>
 				(with a warning)
 			<% end %>
+
+			<% unless message.nil? %>
+				(<%= message %>)
+			<% end %>
 		</span>
 	</a>
 </h3>
