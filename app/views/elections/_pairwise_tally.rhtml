@@ -7,7 +7,7 @@
 		</thead>
 		<tbody>
 			<% results[:strongPairs].each do |pair| %>
-				<tr><td><%= pair[0][0] %> over <%= pair[0][1] %></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
+				<tr><td><em><%= pair[0][0] %></em> over <em><%= pair[0][1] %></em></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
 			<% end %>
 		</tbody>
 	</table>
