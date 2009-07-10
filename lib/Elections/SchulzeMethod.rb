@@ -7,7 +7,7 @@ module Elections
 			# Is there any candidate preferred over all others?
 			results = Elections::SchulzeMethod.initializeCondorcetResults(demographics)
 			return results unless results[:winners].empty?
-			
+						
 			# Build the graph
 			require 'rgl/adjacency'
 			graph = RGL::DirectedAdjacencyGraph[*results[:sortedStrongPairs].values.collect { |c| c[0] }.flatten]

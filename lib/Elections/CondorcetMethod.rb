@@ -26,11 +26,11 @@ module Elections
 		##
 		def self.pairs(preferences, demographics, candidates)
 			pairs = Hash[*candidates.combination(2).collect { |p1, p2| [[p1, p2], 0, [p2, p1], 0] }.flatten(1)]
-			preferences.collect do |d,dp|
-				dp.collect do |p1g|
-					p1g.collect do |p1|
-						(dp.index(p1g)+1..dp.length-1).collect do |p2g|
-							dp[p2g].collect do |p2|
+			preferences.each do |d,dp|
+				dp.each do |p1g|
+					p1g.each do |p1|
+						(dp.index(p1g)+1..dp.length-1).each do |p2g|
+							dp[p2g].each do |p2|
 								pairs[[p1,p2]] += demographics[d][:size]
 							end
 						end

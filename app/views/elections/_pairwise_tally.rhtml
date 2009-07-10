@@ -1,14 +1,18 @@
 <% unless results[:strongPairs].nil? %>
 	<h4>Pair-wise tally</h4>
-	<p>For each pair of candidates, who do voters prefer?</p>
-	<table class="ui-state-highlight ui-corner-all">
-		<thead>
-			<tr><th>Voters prefer</th><th>Victory margin</th></tr>
-		</thead>
-		<tbody>
-			<% results[:strongPairs].each do |pair| %>
-				<tr><td><em><%= pair[0][0] %></em> over <em><%= pair[0][1] %></em></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
-			<% end %>
-		</tbody>
-	</table>
+	<% if results[:strongPairs].empty? %>
+		<p>We'd like to know which candidates would win in pair-wise comparisons, but no such winners exist. In these rare cases, all candidates tie.</p>
+	<% else %>
+		<p>For each pair of candidates, who do voters prefer?</p>
+		<table class="ui-state-highlight ui-corner-all">
+			<thead>
+				<tr><th>Voters prefer</th><th>Victory margin</th></tr>
+			</thead>
+			<tbody>
+				<% results[:strongPairs].each do |pair| %>
+					<tr><td><em><%= pair[0][0] %></em> over <em><%= pair[0][1] %></em></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
 <% end %>

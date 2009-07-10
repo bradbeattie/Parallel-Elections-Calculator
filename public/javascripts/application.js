@@ -26,6 +26,15 @@ scenarios["ignored"]["preferences"] = [90,10,10,
 									   10,90,50,
 									   50,50,90];
 
+scenarios["ties"] = new Array;
+scenarios["ties"]["systems"] = ["Plurality", "InstantRunoff", "SchulzeMethod"];
+scenarios["ties"]["candidates"] = ["Pizza", "Sushi", "Curry"];
+scenarios["ties"]["demographics"] = ["Alice", "Bob", "Chris", "Dave"];
+scenarios["ties"]["demographic_sizes"] = [1,1,1,1];
+scenarios["ties"]["preferences"] = [90,10,10,90,
+                                    10,90,90,10,
+                                    50,50,90,10];
+
 
 $(document).ready(function(){
 	$('#scenarios').bind('tabsshow', function(event, ui) { load_scenario(ui.tab.id.substring(9));	});
@@ -150,9 +159,12 @@ function generate_results(systems) {
 	} else if (systems != undefined && systems instanceof Array) {
 		params["systems[]"] = systems;
 	}
+	$("#accordion").accordion('destroy');
+	$("#accordion").html('<div class="ui-widget-overlay ui-corner-all" /><p class="waiting"><img src="images/ajax.gif" /></p>');
 	$.post("elections/results", params,
 		function(data) {
-			$("#results").html(data);
+		    $("#accordion").html(data);
+			$("#accordion").accordion({ header: "h3", autoHeight: false, collapsible: true, active: false });
 		}
 	);
 	

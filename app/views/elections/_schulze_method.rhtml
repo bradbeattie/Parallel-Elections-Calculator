@@ -9,7 +9,7 @@
 	
 	<% if results[:removed].nil? %>
 		<p>Notice that no candidate is preferred over <em><%= terms(results[:winners],", "," or ") %></em>.</p>
-	<% else %>
+	<% elsif !results[:strongPairs].empty? %>
 		<h4>Preference pruning</h4>
 		<% if results[:winners].length == 1 %>
 			<p>What we have here is a cycle of preferences and no clear winner. To account for this, we're going to drop the weakest preferences neccessary to break the cycle, which will make the winner obvious.</p>

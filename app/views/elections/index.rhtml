@@ -32,6 +32,8 @@
 			#scenarios p:last-child { margin-bottom: 0.5em; }
 			.ui-state-error {  padding: 1em; text-decoration: none; position: relative; }
 			#results th { text-align: left; }
+			.waiting { padding: 2em; text-align: center; }
+			#accordion { position: relative; }
 			#accordion > h3 > a > span { position: absolute; left: 15em; }
 			#accordion > div > *:first-child { margin-top: 0; }
 			#accordion > div > *:last-child { margin-bottom: 0; }
@@ -64,9 +66,10 @@
             <h2>Scenarios</h2>
             <div id="scenarios">
                 <ul>
-                    <li><a id="scenario-splitting" href="#splitting">Plurality splits votes</a></li>
-                    <li><a id="scenario-tactical" href="#tactical">Plurality forces tactical voting</a></li>
-                    <li><a id="scenario-ignored" href="#ignored">IRV ignores some preferences</a></li>
+                    <li><a id="scenario-splitting" href="#splitting">The majority... loses?</a></li>
+                    <li><a id="scenario-tactical" href="#tactical">Cruise ship disaster</a></li>
+                    <li><a id="scenario-ignored" href="#ignored">Ice cream</a></li>
+					<li><a id="scenario-ties" href="#ties">Lunch time</a></li>
                 </ul>
                 <div id="splitting">
                     <p>Take a look at the preferences above. 34% want a yellowish candidate and 66% want a blueish-greenish candidate. Under plurality, the yellow candidate wins. Sound fair? No, I didn't think so.</p>
@@ -81,16 +84,22 @@
 					<p>Under IRV, the economists wouldn't get their first or second choice, despite being the largest demographic. This happens because strawberry is eliminted in the first round. You'd think we'd want to consider the second choice of such a large group. Systems like the Schulze Method satisfy address <a href="http://en.wikipedia.org/wiki/Condorcet_criterion">this issue</a>.</p>
 					<p>Now I know what you're thinking: &quot;What about Neapolitan?&quot; Well, that would require a <a href="http://en.wikipedia.org/wiki/Voting_systems#Multiple-winner_methods">multiple-winner voting system</a>.</p>
                 </div>
+				<div id="ties">
+					<p>Okay, lunch time.</p>
+				</div>
             </div>
 		</div>
 		<div id="results">
+			<h2>Results</h2>
+			<div id="accordion">
+			</div>
 		</div>
 		<div id="footer">
 			<h4>Notes</h4>
 			<p>This calculator also supports <a href="http://en.wikipedia.org/wiki/Ranked_Pairs">Ranked Pairs</a> (omitted as it's oh-so-similar to the Schulze method) and <a href="http://en.wikipedia.org/wiki/Range_voting">range voting</a> (omitted as its Nash equilibrium results in a Condorcet winner). Both can be activated by <a href="?systems=all">viewing all systems</a>.</p>
 			<h4>Licensing</h4>
 			<p><a href="http://en.wikipedia.org/wiki/Voting_systems">Election systems text</a> is sourced from Wikipedia and, as such, is licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons</a>. Wikipedia also has <a href="http://en.wikipedia.org/wiki/Effects_of_different_voting_systems_under_similar_circumstances">a more in-depth analysis of the effects of different voting systems</a> that's well worth looking at.</p>
-			<p>Source code is licensed under the GPL.</p>
+			<p>Source code is licensed under the GPL and is available on <a href="http://github.com/bradbeattie/Parallel-Elections-Calculator">GitHub</a>.</p>
 		</div>
 		
 <script type="text/javascript">
