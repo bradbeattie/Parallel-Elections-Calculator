@@ -159,10 +159,15 @@ function generate_results(systems) {
 	} else if (systems != undefined && systems instanceof Array) {
 		params["systems[]"] = systems;
 	}
-	$("#accordion").accordion('destroy');
-	$("#accordion").html('<div class="ui-widget-overlay ui-corner-all" /><p class="waiting"><img src="images/ajax.gif" /></p>');
+	
+	timeout = setTimeout(function() {
+	   $("#accordion").accordion('destroy');
+	   $("#accordion").html('<div class="ui-widget-overlay ui-corner-all" /><p class="waiting"><img src="images/ajax.gif" /></p>');
+	}, 300); 
 	$.post("elections/results", params,
 		function(data) {
+		   clearTimeout(timeout);
+		    $("#accordion").accordion('destroy');
 		    $("#accordion").html(data);
 			$("#accordion").accordion({ header: "h3", autoHeight: false, collapsible: true, active: false });
 		}
