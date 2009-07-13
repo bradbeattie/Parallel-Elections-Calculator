@@ -30,7 +30,7 @@
 				<% end %>
 			</tbody>
 		</table>
-		<p>Among the remaining pairings, no one prefers <em><%= terms(results[:winners],", ", " or ") %><em> over any other candidate.</p>
+		<p>Among the remaining pairings, no one prefers <em><%= terms(results[:winners],", ", " or ") %></em> over any other candidate.</p>
 	<% end %>
 	
 	<%= render :partial => "result", :locals => { :winners => results[:winners] } %>
