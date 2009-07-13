@@ -10,9 +10,9 @@ module Elections
 						
 			# Build the graph
 			require 'rgl/adjacency'
-			graph = RGL::DirectedAdjacencyGraph[*results[:sortedStrongPairs].values.collect { |c| c[0] }.flatten]
+			graph = RGL::DirectedAdjacencyGraph[*results[:sortedStrongPairs].collect { |v,pairs| pairs }.flatten]
 			results[:candidates].each { |c| graph.add_vertex(c) }
-			edge_weights = deep_copy(results[:sortedStrongPairs].values)
+			edge_weights = deep_copy(results[:sortedStrongPairs].collect { |v,pairs| pairs })
 			
 			# Loop until we're out of edges
 			results[:removed] = Array.new

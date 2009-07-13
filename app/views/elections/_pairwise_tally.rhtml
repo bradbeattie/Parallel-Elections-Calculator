@@ -9,8 +9,10 @@
 				<tr><th>Voters prefer</th><th>Victory margin</th></tr>
 			</thead>
 			<tbody>
-				<% results[:strongPairs].each do |pair| %>
-					<tr><td><em><%= pair[0][0] %></em> over <em><%= pair[0][1] %></em></td><td><%= pair[1] %> to <%= results[:pairs][[pair[0][1],pair[0][0]]] %></td></tr>
+				<% results[:sortedStrongPairs].each do |votes,pairs| %>
+					<% pairs.each do |pair| %>
+						<tr><td><em><%= pair[0] %></em> over <em><%= pair[1] %></em></td><td><%= votes %> to <%= results[:pairs][[pair[1],pair[0]]] %></td></tr>
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>

@@ -9,7 +9,7 @@ module Elections
 			results[:candidates] = self.candidates(demographics)
 			results[:pairs] = self.pairs(results[:preferences], demographics, results[:candidates])
 			results[:strongPairs] = self.strongPairs(results[:pairs])
-			results[:sortedStrongPairs] = results[:strongPairs].grouping_invert
+			results[:sortedStrongPairs] = results[:strongPairs].grouping_invert.sort { |a,b| b<=>a }
 			results[:winners] = self.condorcetWinner(results[:strongPairs], results[:candidates])
 			return results
 		end

@@ -22,10 +22,10 @@
 			</thead>
 			<tbody>
 				<% results[:removed].each do |r| %>
-					<% if r.is_a? Hash %>
-						<tr><td>Removed weakest preference (between <%= r.keys.first %> and <%= r.keys.last %>)</td></tr>
+					<% if r.is_a? Array %>
+						<tr><td>Removed weakest preference (between <em><%= r[0] %></em> and <em><%= r[1] %></em>)</td></tr>
 					<% else %>
-						<tr><td>Removed defeated candidate <%= r %></td></tr>					
+						<tr><td>No remaining preference for <em><%= r %></em>, so we drop that candidate and all related preferences</td></tr>					
 					<% end %>
 				<% end %>
 			</tbody>
