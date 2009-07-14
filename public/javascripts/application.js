@@ -28,12 +28,12 @@ scenarios["ignored"]["preferences"] = [90,10,10,
 
 scenarios["ties"] = new Array;
 scenarios["ties"]["systems"] = ["Plurality", "InstantRunoff", "SchulzeMethod"];
-scenarios["ties"]["candidates"] = ["Pizza", "Sushi", "Curry"];
-scenarios["ties"]["demographics"] = ["Alice", "Bob", "Chris", "Dave"];
+scenarios["ties"]["candidates"] = ["Costa Rica", "Vancouver", "Berne"];
+scenarios["ties"]["demographics"] = ["Alice", "Bob", "Christine", "Dave"];
 scenarios["ties"]["demographic_sizes"] = [1,1,1,1];
-scenarios["ties"]["preferences"] = [90,10,10,50,
-                                    10,50,90,90,
-                                    50,90,90,10];
+scenarios["ties"]["preferences"] = [90,10,10,90,
+                                    90,50,50,50,
+                                    50,50,90,10];
 
 
 $(document).ready(function(){

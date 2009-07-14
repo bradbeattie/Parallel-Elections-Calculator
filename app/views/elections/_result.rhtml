@@ -3,6 +3,6 @@
 	<% if (winners.length == 1) %>
 		<em><%= winners[0] %></em> wins.
 	<% else %>
-		Tie between <em><%= terms(winners,", "," and ") %></em>.
+		Tie between <em><%= terms(winners,"</em>, <em>","</em> and <em>") %></em>.
 	<% end %>
 </p>
