@@ -8,7 +8,7 @@
 				Tie between <%= terms(winners,", "," and ") %>
 			<% end %>
 			
-			<% unless warnings.nil? %>
+			<% unless warnings.nil? || warnings.empty? %>
 				(with a warning)
 			<% end %>
 
