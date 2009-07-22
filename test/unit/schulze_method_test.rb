@@ -97,4 +97,62 @@ class SchulzeMethodTest < ActiveSupport::TestCase
 		})
 		assert results[:winners] == ["Candidate X"]
 	end
+	
+		
+	# Disagree with Ranked Pairs
+	def test_disagree_with_ranked_pairs
+		results = Elections::SchulzeMethod.run({
+			"Demographic V" => {
+				:size => 16,
+				:preferences => {
+					"Candidate A" => 40,
+					"Candidate B" => 50,
+					"Candidate C" => 10,
+					"Candidate D" => 20,
+					"Candidate E" => 30
+				}
+			},
+			"Demographic W" => {
+				:size => 27,
+				:preferences => {
+					"Candidate A" => 30,
+					"Candidate B" => 40,
+					"Candidate C" => 50,
+					"Candidate D" => 10,
+					"Candidate E" => 20
+				}
+			},
+			"Demographic X" => {
+				:size => 17,
+				:preferences => {
+					"Candidate A" => 30,
+					"Candidate B" => 10,
+					"Candidate C" => 50,
+					"Candidate D" => 20,
+					"Candidate E" => 40
+				}
+			},
+			"Demographic Y" => {
+				:size => 31,
+				:preferences => {
+					"Candidate A" => 40,
+					"Candidate B" => 30,
+					"Candidate C" => 20,
+					"Candidate D" => 50,
+					"Candidate E" => 10
+				}
+			},
+			"Demographic Z" => {
+				:size => 9,
+				:preferences => {
+					"Candidate A" => 10,
+					"Candidate B" => 30,
+					"Candidate C" => 20,
+					"Candidate D" => 40,
+					"Candidate E" => 50
+				}
+			}
+		})
+		assert results[:winners] == ["Candidate A"]
+	end
 end
