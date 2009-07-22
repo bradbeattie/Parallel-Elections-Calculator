@@ -1,6 +1,6 @@
 scenarios = new Array;
 scenarios["splitting"] = new Array;
-scenarios["splitting"]["systems"] = ["Plurality", "SchulzeMethod"];
+scenarios["splitting"]["systems"] = ["Plurality", "RankedPairs"];
 scenarios["splitting"]["candidates"] = ["Yellow Candidate", "Teal Candidate", "Aqua Candidate"];
 scenarios["splitting"]["demographics"] = ["People living on the north side", "People living on the south side", "People living in the city centre"];
 scenarios["splitting"]["demographic_sizes"] = [34,33,33];
@@ -9,7 +9,7 @@ scenarios["splitting"]["preferences"] = [80,10,10,
 										 40,70,80];
 
 scenarios["tactical"] = new Array;
-scenarios["tactical"]["systems"] = ["Plurality", "SchulzeMethod"];
+scenarios["tactical"]["systems"] = ["Plurality", "RankedPairs"];
 scenarios["tactical"]["candidates"] = ["Turn back before it's too late", "Keep sailing across the Atlantic", "Search for a nearby habitable island"];
 scenarios["tactical"]["demographics"] = ["Crew", "Passengers", "Adventurous passengers"];
 scenarios["tactical"]["demographic_sizes"] = [80,70,15];
@@ -18,7 +18,7 @@ scenarios["tactical"]["preferences"] = [90,10,10,
 										50,50,90];
 
 scenarios["ignored"] = new Array;
-scenarios["ignored"]["systems"] = ["InstantRunoff", "SchulzeMethod"];
+scenarios["ignored"]["systems"] = ["InstantRunoff", "RankedPairs"];
 scenarios["ignored"]["candidates"] = ["Chocolate", "Vanilla", "Strawberry"];
 scenarios["ignored"]["demographics"] = ["Economists", "Actuaries", "Jugglers"];
 scenarios["ignored"]["demographic_sizes"] = [80,50,35];
@@ -27,7 +27,7 @@ scenarios["ignored"]["preferences"] = [90,10,10,
 									   50,50,90];
 
 scenarios["ties"] = new Array;
-scenarios["ties"]["systems"] = ["Plurality", "InstantRunoff", "SchulzeMethod"];
+scenarios["ties"]["systems"] = ["Plurality", "InstantRunoff", "RankedPairs"];
 scenarios["ties"]["candidates"] = ["Costa Rica", "Vancouver", "Berne"];
 scenarios["ties"]["demographics"] = ["Alice", "Bob", "Christine", "Dave"];
 scenarios["ties"]["demographic_sizes"] = [1,1,1,1];
