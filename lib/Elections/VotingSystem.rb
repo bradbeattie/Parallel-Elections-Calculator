@@ -1,5 +1,47 @@
 module Elections
 	class VotingSystem
+	
+		# def self.run(demographics)
+		#
+		# Input:
+		#	(required) A hash that describes the demgraphics, their sizes and their expressed preferences.
+		#	(optional) A positive integer that indicates the number of winning candidates desired (defaults to 1)
+		#
+		# Example demographics hash:
+		# {
+		#	"Demographic A" => {
+		#		:size => 20,
+		#		:preferences => {
+		#			"Candidate X" => 100,
+		#			"Candidate Y" => 50,
+		#			"Candidate Z" => 0
+		#		}
+		#	},
+		#	"Demographic B" => {
+		#		:size => 15,
+		#		:preferences => {
+		#			"Candidate X" => 75,
+		#			"Candidate Y" => 75,
+		#			"Candidate Z" => 25
+		#		}
+		#	},
+		#	"Demographic C" => {
+		#		:size => 15,
+		#		:preferences => {
+		#			"Candidate X" => 50,
+		#			"Candidate Y" => 100,
+		#			"Candidate Z" => 50
+		#		}
+		#	}
+		# }
+		#
+		# Output: A hash that contains a description of the process used to obtain the results
+		#	[:preferences] A hash of the processed preferences (e.g. plurality would list one candidate per demographic)
+		#	[:winners] An array of candidates that unambiguously win (possibly empty)
+		#	[:tied_candidates] An array of candidates that tie for the win  (note that [:winners] may still !empty?)
+		#
+	
+	
 		def self.candidates(demographics)
 			demographics.values.collect { |a| a[:preferences].collect { |p| p[0] } }.flatten.uniq
 		end
