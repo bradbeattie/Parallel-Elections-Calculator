@@ -1,7 +1,7 @@
 # http://en.wikipedia.org/wiki/instant_runoff_voting
 
 require 'Elections/PreferentialVotingSystem'
-require 'Elections/SchulzeMethod'
+require 'Elections/RankedPairs'
 require 'Elections/Plurality'
 
 module Elections
@@ -31,7 +31,7 @@ module Elections
 				least_popular = [results[:votes][round].grouping_invert.min[1]]
 				results[:warnings][:ties][round] = least_popular.last if least_popular.last.length > 1
 				until least_popular.last.empty?
-					least_popular << least_popular.last - Elections::SchulzeMethod.run(self.restrictedDemographics(currentDemographics, least_popular.last))[:winners]
+					least_popular << least_popular.last - Elections::RankedPairs.run(self.restrictedDemographics(currentDemographics, least_popular.last))[:winners]
 				end
 					
 				# Eliminate the least popular candidate and move on to the next round
