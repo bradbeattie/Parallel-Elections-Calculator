@@ -19,7 +19,7 @@ class ElectionsController < ApplicationController
 		defaults = {
 			Elections::Plurality => true,
 			Elections::InstantRunoff => true,
-			Elections::SchulzeMethod => false,
+			# Elections::SchulzeMethod => false,
 			Elections::RankedPairs => true,
 			Elections::RangeVoting => false,
 			Elections::RandomBallot => false
